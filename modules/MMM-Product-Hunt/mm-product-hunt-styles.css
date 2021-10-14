@@ -6,16 +6,16 @@
 }
 
 .wrapper {
-  background-color: white;
+  /* background-color: white; */
   position: relative;
-  width: 300px;
+  width: 230px;
 }
 
 .product-post-container {
   display: flex;
-  padding: 10px;
-  border-bottom: 1px solid #d9e1ec;
+  border-bottom: 0.5px dashed dimgrey;
   flex-direction: column;
+  padding: 10px 0;
 }
 
 .product-container {
@@ -38,8 +38,12 @@
   width: 0;
   background: none;
 }
+
+.product-post-container:last-child {
+  border-bottom: 0;
+}
+
 .product-details {
-  margin: 10px;
 }
 
 .topics {
@@ -55,12 +59,12 @@
 h1 {
   font-size: 16px;
   font-weight: 600;
-  color: #21293c;
+  color: #ffffff;
 }
 
 p {
   font-size: 13px;
-  color: #4b587c;
+  color: #ffffff;
   font-weight: 400;
 }
 
