@@ -16,22 +16,23 @@
   border-bottom: 0.5px dashed dimgrey;
   flex-direction: column;
   padding: 10px 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .product-container {
   display: flex;
 }
 
-/*
-.product-post-container::after {
-  content: " ";
-  height: 1px;
-  width: 100%;
-  background-color: #d9e1ec;
-  position: absolute;
-  left: 0;
+.inactive {
+  display: none;
 }
-*/
+
+.active {
+  display: flex !important;
+}
+
 .product-post-container:first-child::after {
   content: "";
   height: 0;
@@ -41,9 +42,6 @@
 
 .product-post-container:last-child {
   border-bottom: 0;
-}
-
-.product-details {
 }
 
 .topics {
