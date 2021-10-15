@@ -24,38 +24,53 @@ Module.register("MMM-Product-Hunt", {
 		return wrapper;
 	},
 	setupHTMLStructure(wrapper) {
-		this.pData.posts.forEach((item, indexItem) => {
-			if (indexItem < 3) {
-				let productPostContainer = document.createElement("div");
-				productPostContainer.className = `product-post-container id-${item.id}`;
+		console.log(this.pData.posts);
+		let activeIndex = 0;
+		let productPostContainer = document.createElement("div");
+		let productDetails = document.createElement("div");
+		let productPostTitle = document.createElement("h1");
+		let productPostTagline = document.createElement("p");
+		let productImg = document.createElement("img");
+		let topicContainer = document.createElement("div");
+		let productContainer = document.createElement("div");
+		let topicItem1 = document.createElement("span");
+		let topicItem2 = document.createElement("span");
 
-				let productDetails = document.createElement("div");
-				productDetails.className = "product-details";
+		setInterval(() => {
+			if (activeIndex < this.pData.posts.length) {
+				console.log(activeIndex);
+				productPostContainer.id = "product-hunt-main-div";
+				productPostContainer.className = `product-post-container active`;
+				productPostContainer.setAttribute(`data-index`, activeIndex);
 
-				let productPostTitle = document.createElement("h1");
-				productPostTitle.className = "product-post-title";
-				productPostTitle.innerHTML = item.name;
+				productDetails.id = "product-details";
 
-				let productPostTagline = document.createElement("p");
-				productPostTagline.innerHTML = item.tagline;
+				productPostTitle.id = "product-post-title";
+				productPostTitle.innerHTML = this.pData.posts[activeIndex].name;
 
-				let productImg = document.createElement("img");
-				productImg.src = item.thumbnail.image_url;
+				productPostTagline.id = "product-post-p";
+				productPostTagline.innerHTML = this.pData.posts[activeIndex].tagline;
 
-				let topicContainer = document.createElement("div");
-				topicContainer.className = "topic-container";
+				productImg.src = this.pData.posts[activeIndex].thumbnail.image_url;
+				productImg.id = "product-hunt-img";
 
-				let topicSlice = item.topics.slice(0, 2);
+				topicContainer.id = "topic-container";
 
-				topicSlice.forEach((topic) => {
-					let topicItem = document.createElement("span");
-					topicItem.className = `topics ${topic.slug}`;
-					topicItem.innerHTML = topic.name;
-					topicContainer.appendChild(topicItem);
-				});
+				let topicSlice = this.pData.posts[activeIndex].topics.slice(0, 2);
 
-				let productContainer = document.createElement("div");
-				productContainer.className = "product-container";
+				console.log(topicSlice);
+				topicItem1.id = `topics-${topicSlice[0].slug}`;
+				topicItem1.className = "topics-styling";
+				topicItem2.className = "topics-styling";
+				topicItem1.innerHTML = topicSlice[0].name;
+				topicContainer.appendChild(topicItem2);
+				if (topicSlice.length > 1) {
+					topicItem2.id = `topics-${topicSlice[1].slug}`;
+					topicItem2.innerHTML = topicSlice[1].name;
+					topicContainer.appendChild(topicItem1);
+				}
+
+				productContainer.id = "product-container";
 
 				productContainer.appendChild(productImg);
 				productContainer.appendChild(productDetails);
@@ -66,14 +81,18 @@ Module.register("MMM-Product-Hunt", {
 				productPostContainer.appendChild(productContainer);
 				productPostContainer.appendChild(topicContainer);
 
-				wrapper.appendChild(productPostContainer);
+				activeIndex++;
+			} else {
+				activeIndex = 0;
 			}
-		});
+		}, 10000);
+
+		wrapper.appendChild(productPostContainer);
 	},
 	getProductHunt() {
 		fetch("https://api.producthunt.com/v1/posts/", {
 			headers: {
-				Authorization: `Bearer ${APIKEY}`,
+				Authorization: `Bearer`,
 				Accept: "application/json",
 				"Content-Type": "application/json",
 				Host: "api.producthunt.com"
