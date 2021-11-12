@@ -92,7 +92,7 @@ Module.register("MMM-Product-Hunt", {
 	getProductHunt() {
 		fetch("https://api.producthunt.com/v1/posts/", {
 			headers: {
-				Authorization: `Bearer`,
+				Authorization: `Bearer `,
 				Accept: "application/json",
 				"Content-Type": "application/json",
 				Host: "api.producthunt.com"
